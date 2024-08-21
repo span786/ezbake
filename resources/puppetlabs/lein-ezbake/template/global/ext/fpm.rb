@@ -195,7 +195,7 @@ if options.output_type == 'rpm'
           else
             fail "Unrecognized el os version #{options.os_version}"
           end
-        when 6..7
+        when 7
           'java-1.8.0-openjdk-headless'
         else
           fail "Unknown Puppet Platform Version #{options.platform_version}"
@@ -215,19 +215,7 @@ if options.output_type == 'rpm'
     options.systemd_sles = 1
     options.sles = 1
     if ! options.is_pe
-      options.java =
-        case options.platform_version
-        when 8
-          'java-11-openjdk-headless'
-        when 6..7
-          if options.os_version > 12
-            'java-11-openjdk-headless'
-          else
-            'java-1_8_0-openjdk-headless'
-          end
-        else
-          fail "Unknown Puppet Platform Version #{options.platform_version}"
-        end
+      options.java = 'openjdk-17-jre-headless | openjdk-11-jre-headless'
     end
   elsif options.operating_system == :sles #old sles
     options.sysvinit = 1
